@@ -1,0 +1,47 @@
+﻿.main-label {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #47a9ff;
+}
+
+.form-field {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.form-input {
+    width: 100%;
+    /*padding: 10px 13px 8px;*/ /* вернуть если шрифт поменяется на другой, не багнутый */
+    padding: 4px 13px 8px; /* убрать если шрифт поменяется на другой, не багнутый */
+    font-size: 16px;
+    line-height: 24px; /* убрать если шрифт поменяется на другой, не багнутый */
+    font-weight: 500;
+    color: $white;
+    font-family: "Gramatika", "Arial", "sans-serif";
+    border: 2px solid $blue;
+    border-radius: $first-radius;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background-color: $black-violet;
+
+    &:hover, &:focus {
+        border-color: $light-violet;
+        outline: none;
+    }
+
+    &:active {
+        border-color: $light-green;
+    }
+}
+.form-select {
+    padding:8px 13px 8px;
+    cursor: pointer;
+}

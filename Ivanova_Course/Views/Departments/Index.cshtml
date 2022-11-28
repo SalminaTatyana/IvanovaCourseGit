@@ -1,0 +1,40 @@
+﻿@using Core
+<section class="departments">
+    <h1 class="block-title">Отделы</h1>
+    <form class="departments-search-form" asp-action="SearchDepartments">
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="name">Название отдела</label>
+            <input class="form-input" name="name" id="name" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="name">Количество работников</label>
+            <input class="form-input" name="number" type="number" id="number" />
+        </div>
+        <div class=" departmetns-input-wrapper departmetns-button-wrapper col-lg-3 col-md-4 col-12">
+            <input type="button" class="primary-btn" value="Поиск" onclick="searchDepartments()" />
+            <input type="reset" class="secondary-btn" value="Отменить" />
+        </div>
+    </form>
+    <div class="departments-table" id="departmentsTable">
+       
+    </div>
+</section>
+<script>
+    function searchDepartments() {
+        let name = $('#name').val();
+        let number = $('#number').val();
+        $.ajax({
+            url: "@Url.Action("SearchDepartments")",
+            type: 'Post',
+            data: {
+                'number': number,
+                'name': name
+            },
+            beforeSend: Loader,
+            complete: Loader,
+            success: function (data) {
+                $('#departmentsTable').html(data);
+            }
+        });
+    }
+</script>

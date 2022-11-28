@@ -1,0 +1,56 @@
+﻿
+.primary-btn {
+    padding: 10px 20px 10px;
+    min-width: 140px;
+    font-size: $text;
+    color: $white;
+    font-weight: 500;
+    text-align: center;
+    background-color: $light-blue;
+    border-radius: $first-radius;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+        background-color: $light-violet;
+    }
+
+    &:active {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background-color: $light-green;
+    }
+}
+
+.secondary-btn {
+    display: inline-block;
+    padding: 6px 9px 6px;
+    font-size: $text;
+    font-weight: 700;
+    text-align: center;
+    color: $white;
+    background-color: #020A18;
+    border: 4px solid $light-blue;
+    border-radius: $first-radius;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+        background-color: $dark-violet;
+        border-color: $light-violet;
+    }
+
+    &:active {
+        background-color: none;
+        border-color: $light-green;
+    }
+}

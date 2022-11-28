@@ -1,0 +1,47 @@
+﻿.card-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 ;
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: calc(25% - 30px);
+    min-height: 145px;
+    padding: 10px 15px;
+    margin: 0px 15px 25px;
+    background-color: $violet;
+    background-repeat: no-repeat;
+    border-radius: $first-radius;
+    word-break: break-all;
+    cursor: pointer;
+    text-align: center;
+    &:hover,
+    &:focus {
+        background-color: $blue;
+    }
+
+    &:active {
+        background: $green;
+    }
+    .icon {
+        margin: auto;
+    }
+}
+.card-name {
+    font-size: 24px;
+    font-weight: 500;
+    word-break: break-word;
+    color: $white;
+    width: 100%;
+}

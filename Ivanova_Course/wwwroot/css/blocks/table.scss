@@ -1,0 +1,29 @@
+﻿.table-td {
+    width: 25%;
+}
+.table-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.table {
+    color: $white !important;
+    margin: 30px 0 30px 0;
+}
+.table-head {
+    color: $light-blue;
+    font-size: $h4-title;
+}
+.table-delete ,.table-edit {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover .b,
+    &:focus .b {
+        fill: $blue;
+    }
+}
+.table-button-td {
+    width: 40px;
+}

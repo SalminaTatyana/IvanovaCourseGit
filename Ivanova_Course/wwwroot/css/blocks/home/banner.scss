@@ -1,0 +1,60 @@
+﻿.wrapper {
+    max-width: 1250px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+   
+}
+.banner {
+    margin-bottom: 45px;
+}
+.banner-text {
+    width: 70%;
+    padding: 15px;
+    margin: auto 0;
+}
+.banner-img {
+    width: 30%;
+}
+.section-index-banner {
+   padding: 75px 80px;
+}
+.practice-banner {
+    background: linear-gradient(0deg, $black-violet 0%,$light-violet 10%, $light-violet 80%, $black-violet 90%);
+    
+}
+.internship-banner {
+   
+}
+.freelance-banner {
+    background: linear-gradient(0deg, $black-violet 0%,$blue 10%, $blue 80%, $black-violet 90%);
+}
+.hackaton-banner {
+}
+
+.section-index-banner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+    .primary-btn {
+        margin: 20px 0 0 auto;
+        display: block;
+        width: fit-content;
+    }
+}
+.section-index-banner-text{
+    width: 50%;
+    padding: 15px;
+}
+.section-index-banner-img{
+    width: 50%;
+}
+.practice-banner, .freelance-banner {
+    .section-index-banner-img {
+        order: -1;
+    }
+}

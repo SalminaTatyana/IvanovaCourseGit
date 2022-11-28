@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Ivanova_Course\Web.csproj", "{A96D6288-2884-460A-B4A8-CC8CD5E7D756}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{0B370F02-7364-4616-85D0-830AA387C300}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A96D6288-2884-460A-B4A8-CC8CD5E7D756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96D6288-2884-460A-B4A8-CC8CD5E7D756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96D6288-2884-460A-B4A8-CC8CD5E7D756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96D6288-2884-460A-B4A8-CC8CD5E7D756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B370F02-7364-4616-85D0-830AA387C300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B370F02-7364-4616-85D0-830AA387C300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B370F02-7364-4616-85D0-830AA387C300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B370F02-7364-4616-85D0-830AA387C300}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB079941-8FD5-4450-9D57-D1FEF0244376}
+	EndGlobalSection
+EndGlobal

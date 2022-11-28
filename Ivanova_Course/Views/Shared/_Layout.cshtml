@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewData["Title"] - AIS_Lab</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.min.css" />
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="loader-wrapper" style="display: none;"><span class="loader"></span></div>
+    <div class="main-wrapper">
+        <div class="container">
+            <header>
+
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg width="50" height="50" viewBox="0 0 271 271" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_8_48)">
+                            <path d="M266.24 99.8105C250.575 42.2937 197.981 0 135.5 0C60.6657 0 0 60.6657 0 135.5C0 197.981 42.2937 250.575 99.8111 266.24L266.24 99.8105Z" fill="#755BCA" />
+                            <path d="M271 135.5C271 123.147 269.337 111.183 266.24 99.8105L191.467 25.0381L79.5326 245.962L99.8111 266.24C111.183 269.338 123.147 271 135.5 271C210.334 271 271 210.334 271 135.5Z" fill="#361E83" />
+                            <path d="M135.493 51.549H106.043C106.043 36.9073 94.1813 25.0381 79.5326 25.0381V57.2093L135.494 113.484L141.385 82.5166L135.493 51.549Z" fill="#1D54BD" />
+                            <path d="M135.494 113.414C135.494 82.5007 110.446 57.4403 79.5326 57.4403V119.376L141.385 125.267C141.385 125.267 135.494 113.412 135.494 113.414Z" fill="#C5F3E7" />
+                            <path d="M104.575 100.005C110.98 100.005 116.172 94.8128 116.172 88.4079C116.172 82.0031 110.98 76.8109 104.575 76.8109C98.1705 76.8109 92.9783 82.0031 92.9783 88.4079C92.9783 94.8128 98.1705 100.005 104.575 100.005Z" fill="white" />
+                            <path d="M164.957 51.549H135.493V113.484L191.467 57.4403V25.0381C176.826 25.0381 164.957 36.9073 164.957 51.549Z" fill="#12398F" />
+                            <path d="M191.467 57.4403C160.555 57.4403 135.495 82.499 135.493 113.411V125.267L191.467 119.376V57.4403Z" fill="#4ECAAB" />
+                            <path d="M166.425 100.005C172.83 100.005 178.022 94.8128 178.022 88.4079C178.022 82.0031 172.83 76.8109 166.425 76.8109C160.02 76.8109 154.828 82.0031 154.828 88.4079C154.828 94.8128 160.02 100.005 166.425 100.005Z" fill="white" />
+                            <path d="M79.5326 119.376V245.962C141.273 245.962 191.467 195.847 191.467 134.027V119.376H79.5326Z" fill="#5882CA" />
+                            <path d="M150.426 204.771C169.961 185.235 169.961 153.563 150.426 134.027C130.891 114.492 99.0676 114.492 79.5326 134.027" fill="#1D54BD" />
+                            <path d="M79.5326 134.027V234.179C107.153 234.179 132.191 222.969 150.324 204.845L79.5326 134.027Z" fill="#12398F" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_8_48">
+                                <rect width="271" height="271" fill="white" />
+                            </clipPath>
+                        </defs>
+
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <a class="nav-link" asp-controller="Home" asp-action="Index">Главная</a>
+                <a class="nav-link" asp-controller="Departments" asp-action="Index">Отделы </a>
+                <a class="nav-link" asp-controller="Employees" asp-action="Index">Работники</a>
+                <a class="nav-link" asp-controller="Expenses" asp-action="Index">Траты</a>
+                <a class="nav-link" asp-controller="Limits" asp-action="Index">Лимиты</a>
+            </header>
+
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+
+
+            <footer class="footer">
+
+                &copy; 2022 -<a href="https://vk.com/tanyahehehe"> Иванова Татьяна Игоревна АС-41</a>
+
+            </footer>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function Loader(b) {
+            if (typeof b === "boolean") {
+                if (b == true) $('.loader-wrapper').fadeIn(10);
+                else $('.loader-wrapper').fadeOut(10);
+            } else $('.loader-wrapper').fadeToggle(10);
+        }
+        window.onbeforeunload = function () {
+            $('.loader-wrapper').fadeIn(10);
+            setTimeout(function () {
+                Loader(false);
+            }, 105000); //hide loader
+        };
+        window.addEventListener("unload", function () {
+            Loader(false);
+        });
+    </script>
+</body>
+</html>

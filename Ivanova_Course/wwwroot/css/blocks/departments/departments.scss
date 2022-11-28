@@ -1,0 +1,25 @@
+﻿.departments-search-form {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+.departments {
+    margin: 35px 20px 20px 50px;
+}
+
+.departmetns-button-wrapper {
+    display: flex;
+  input {
+      width: calc(50% - 15px);
+      margin-right: 30px;
+      flex-grow: 1;
+      &:last-of-type {
+          margin-right:0;
+      }
+  }
+}
+
+.departments-table {
+   
+}

@@ -1,0 +1,54 @@
+﻿@using Core
+@model LimitsModel
+<section class="limits">
+    <h1 class="block-title">Лимиты</h1>
+    <form class="departments-search-form" asp-action="SearchLimits">
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="departmentName">Название отдела</label>
+            <select class="form-input form-select" id="departmentId">
+                @for (int i = 0; i < Model.Limits.Count; i++)
+                {
+                    <option value="@Model.Limits[i].DepartmentId">@Model.Limits[i].DepartmentName</option>
+                }
+                <option value="" selected disabled hidden>Выберите значение</option>
+            </select>
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="value">Размер лимита</label>
+            <input class="form-input" name="value" type="number" id="value" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="date">Дата</label>
+            <input class="form-input" name="date" type="date" id="date" />
+        </div>
+        <div class=" departmetns-input-wrapper departmetns-button-wrapper col-lg-3 col-md-4 col-12">
+            <input type="button" class="primary-btn" value="Поиск" onclick="searchLimits()" />
+            <input type="reset" class="secondary-btn" value="Отменить" />
+        </div>
+    </form>
+    <div class="limits-table" id="limitsTable"></div>
+    <div class="limits-table" id="AddLimits">
+       
+    </div>
+</section>
+<script>
+    function searchLimits() {
+        let date = $('#date').val();
+        let departmentId = $('#departmentId').val();
+        let value = $('#value').val();
+        $.ajax({
+            url: "@Url.Action("SearchLimits")",
+            type: 'Post',
+            data: {
+                'date': date,
+                'departmentId': departmentId,
+                'value': value
+            },
+            beforeSend: Loader,
+            complete: Loader,
+            success: function (data) {
+                $('#limitsTable').html(data);
+            }
+        });
+    }
+</script>

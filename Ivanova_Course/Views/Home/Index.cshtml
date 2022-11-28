@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+<section class="home-exercise">
+    <p class="home-exercise-text">
+        Вы работаете в бухгалтерии частной фирмы. Сотрудники фирмы имеют возможность осуществлять
+        мелкие покупки для нужд фирмы, предоставляя в бухгалтерию товарный чек. Вашей задачей является
+        отслеживание внутриофисных расходов.
+    </p>
+        <ul class="home-exercise-list">
+            <li>
+                Ваша фирма состоит из отделов. Каждый отдел имеет название.
+            </li>
+            <li>
+                В каждом отделе работает определенное количество сотрудников.
+            </li>
+            <li>
+                Сотрудники могут осуществлять покупки в соответствии с видами расходов.
+            </li>
+            <li>
+                Каждый вид расходов имеет название, некоторое описание и предельную сумму средств, которые могут быть потрачены по данному виду расходов в месяц.
+            </li>
+            <li>
+                При каждой покупке сотрудник оформляет документ, где указывает вид расхода, дату, сумму и отдел.
+            </li>
+        </ul>
+   
+    
+</section>
+<section class="card-list mt-3">
+    <a class="card" asp-controller="Departments" asp-action="Index">
+        <img class="icon" src=@Url.Content("~/images/departments/departments-logo.svg") width="115" height="70" aria-hidden="true" alt="Отделы">
+        <b class="card-name">Отделы</b>
+    </a>
+    <a class="card" asp-controller="Employees" asp-action="Index">
+        <img class="icon" src=@Url.Content("~/images/employees/employees-logo.svg") width="115" height="70" aria-hidden="true" alt="Работники">
+        <b class="card-name">Работники</b>
+    </a>
+    <a class="card" asp-controller="Expenses" asp-action="Index">
+        <img class="icon" src=@Url.Content("~/images/expenses/expenses-logo.svg") width="115" height="70" aria-hidden="true" alt="Траты">
+        <b class="card-name">Траты</b>
+    </a>
+    <a class="card" asp-controller="Limits" asp-action="Index" >
+        <img class="icon" src=@Url.Content("~/images/limits/limits-logo.svg") width="115" height="70" aria-hidden="true" alt="Лимиты">
+        <b class="card-name">Лимиты</b>
+    </a>
+</section>
