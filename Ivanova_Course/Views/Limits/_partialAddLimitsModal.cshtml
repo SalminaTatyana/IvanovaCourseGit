@@ -11,15 +11,15 @@
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="departmentId">Наименование отдела</label>
                     <select class="form-input form-select" id="addDepartmentId">
-                        @for (int i = 0; i < Model.Limits.Count; i++)
+                        @for (int i = 0; i < Model.Departments.Count; i++)
                         {
-                            <option value="@Model.Limits[i].DepartmentId"> @Model.Limits[i].DepartmentName </option>
+                            <option value="@Model.Departments[i].Id"> @Model.Departments[i].Name </option>
                         }
                     </select>
                 </div>
                 <div class="add-services-modal-input-items ">
-                    <label class="add-services-modal-label main-label" for="limitValue">Лимит на отдел</label>
-                    <input class="form-input" id="limitValue" type="number" />
+                    <label class="add-services-modal-label main-label" for="addlimitValue">Лимит на отдел</label>
+                    <input class="form-input" id="addlimitValue" type="number" />
 
                 </div>
                 <div class="add-services-modal-input-items ">
@@ -42,7 +42,7 @@
         $('#modalAddLimits').data('ModalWindow').open();})
     function addLimit() {
         var departmentId = $('#addDepartmentId').val();
-        var limitValue = $('#limitValue').val();
+        var limitValue = $('#addlimitValue').val();
         var date = $('#addDate').val();
         $.ajax({
             url: "@Url.Action("AddLimits")",

@@ -6,9 +6,9 @@
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
             <label class="main-label" for="departmentName">Название отдела</label>
             <select class="form-input form-select" id="departmentId">
-                @for (int i = 0; i < Model.Limits.Count; i++)
+                @for (int i = 0; i < Model.Departments.Count; i++)
                 {
-                    <option value="@Model.Limits[i].DepartmentId">@Model.Limits[i].DepartmentName</option>
+                    <option value="@Model.Departments[i].Id">@Model.Departments[i].Name</option>
                 }
                 <option value="" selected disabled hidden>Выберите значение</option>
             </select>
@@ -28,9 +28,11 @@
     </form>
     <div class="limits-table" id="limitsTable"></div>
     <div class="limits-table" id="AddLimits">
-       
+
     </div>
 </section>
+@{await Html.RenderPartialAsync("_partialEditLimitsModal", Model);}
+
 <script>
     function searchLimits() {
         let date = $('#date').val();

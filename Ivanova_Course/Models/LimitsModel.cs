@@ -11,6 +11,7 @@ namespace Web.Models
     public class LimitsModel
     {
         public List<Limits> Limits;
+        public List<Department> Departments;
     }
     public class Limits
     {
@@ -19,6 +20,8 @@ namespace Web.Models
         public string DepartmentName { get; set; }
         public int Value { get; set; }
         public DateTime Date { get; set; }
+        public int DepartmentEmployeesCount { get; set; }
+
     }
     public static class LimitsMapper
     {
@@ -32,6 +35,7 @@ namespace Web.Models
                     .ForMember(request => request.Id, conf => conf.MapFrom(filter => filter.Id))
                     .ForMember(request => request.Value, conf => conf.MapFrom(filter => filter.Value))
                     .ForMember(request => request.Date, conf => conf.MapFrom(filter => filter.Date))
+                    .ForMember(request => request.DepartmentEmployeesCount, conf => conf.MapFrom(filter => filter.Department.EmployeesNumber))
 
             );
         }

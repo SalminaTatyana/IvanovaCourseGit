@@ -13,72 +13,53 @@ namespace Web.Controllers
     public class LimitsController : Controller
     {
         private readonly Ivanova_AS41_courseContext _context;
+
+        public Task<List<Departments>> departmentName;
+        public LimitsModel model = new LimitsModel();
+
         public LimitsController(Ivanova_AS41_courseContext context)
         {
             _context = context;
+            departmentName = _context.Departments.DepartmentsEntities().ToListAsync();
+            model.Departments = new List<Department>();
+            for (int i = 0; i < departmentName.Result.Count; i++)
+            {
+                model.Departments.Add(new Department());
+
+                model.Departments[i].Id = departmentName.Result[i].Id;
+
+                model.Departments[i].Name = departmentName.Result[i].Name;
+
+            }
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            LimitsModel model = new LimitsModel();
-            model.Limits = new List<Limits>();
-            var result = await _context.Departments.DepartmentsEntities().ToListAsync();
-            for (int i = 0; i < result.Count; i++)
-            {
-                model.Limits.Add(new Limits());
-                model.Limits[i].DepartmentId = result[i].Id;
-                model.Limits[i].DepartmentName = result[i].Name;
-            }
-            return View("Index",model);
+            return View("Index", model);
         }
         public async Task<IActionResult> SearchLimits(int departmentId, int value, DateTime? date)
         {
-            LimitsModel model = new LimitsModel();
-            model.Limits = new List<Limits>();
-           
-                var result = await _context.Limits.Where(s => s.DepartmentId == (departmentId>0?departmentId:s.DepartmentId) && s.Value == (value > 0 ? value : s.Value)&& s.Date == (date != null ? date : s.Date)).LimitsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                model.Limits.Add(new Limits());
-                model.Limits[i].Id = result[i].Id; 
-                model.Limits[i].DepartmentId = result[i].DepartmentId;
-                model.Limits[i].Value = result[i].Value;
-                var departmentName= _context.Departments.SingleOrDefaultAsync(s => s.Id == result[i].DepartmentId);
-                model.Limits[i].DepartmentName = departmentName.Result.Name;
-                model.Limits[i].Date = result[i].Date;
-                }
+
+            var result = await _context.Limits.Include(s=>s.Department).Where(s => s.DepartmentId == (departmentId > 0 ? departmentId : s.DepartmentId) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsEntities().ToListAsync();
+            model.Limits = result;
 
             return PartialView("_partialLimitsTable", model);
         }
-        public async Task<IActionResult> AddLimitsInfo()
+        public IActionResult AddLimitsInfo()
         {
-            LimitsModel model = new LimitsModel();
-            model.Limits = new List<Limits>();
-
-            var departmentName = await _context.Departments.DepartmentsEntities().ToListAsync();
-            for (int i = 0; i < departmentName.Count; i++)
-            {
-                model.Limits.Add(new Limits());
-
-                model.Limits[i].DepartmentId = departmentName[i].Id;
-
-                model.Limits[i].DepartmentName = departmentName[i].Name;
-
-            }
-
             return PartialView("_partialAddLimitsModal", model);
         }
         public async Task<int> AddLimits(int departmentId, int value, DateTime date)
         {
             try
             {
-                if (departmentId > 0&& value > 0)
+                if (departmentId > 0 && value > 0)
                 {
                     Limit limit = new Limit()
                     {
-                        DepartmentId=departmentId,
-                        Date=date,
-                        Value=value
+                        DepartmentId = departmentId,
+                        Date = date,
+                        Value = value
 
                     };
                     var response = _context.Limits.Add(limit);
@@ -93,18 +74,18 @@ namespace Web.Controllers
                 return -2;
             }
         }
-        public async Task<int> EditLimits(Limits editInfo)
+        public async Task<int> EditLimits(int departmentId, int value, DateTime date,int id)
         {
             try
             {
-                if (editInfo.Value > 0 && editInfo.DepartmentId > 0)
+                if (value > 0 && departmentId > 0&&id>0)
                 {
                     Limit limit = new Limit()
                     {
-                        Id=editInfo.Id,
-                        DepartmentId = editInfo.DepartmentId,
-                        Date = editInfo.Date,
-                        Value = editInfo.Value
+                        Id = id,
+                        DepartmentId = departmentId,
+                        Date = date,
+                        Value = value
 
                     };
                     var response = _context.Limits.Update(limit);
@@ -125,7 +106,7 @@ namespace Web.Controllers
             {
                 if (id != 0)
                 {
-                    var entity = await _context.Limits.SingleOrDefaultAsync(s => s.Id == id); 
+                    var entity = await _context.Limits.SingleOrDefaultAsync(s => s.Id == id);
                     var response = _context.Limits.Remove(entity);
                     await _context.SaveChangesAsync();
                     return id;
