@@ -1,5 +1,91 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Core
+@model EmployeesModel
 @{
+
+    ViewData["Title"] = "Работники";
 }
+<section class="employees">
+    <h1 class="block-title">Лимиты</h1>
+    <form class="departments-search-form" asp-action="SearchEmployees">
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="firstName">Имя</label>
+            <input class="form-input" name="firstName" type="text" id="firstName" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="lastName">Фамилия</label>
+            <input class="form-input" name="lastName" type="text" id="lastName" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="patronymic">Отчество</label>
+            <input class="form-input" name="patronymic" type="text" id="patronymic" />
+        </div>
+
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="departmentName">Название отдела</label>
+            <select class="form-input form-select" id="departmentName">
+                @for (int i = 0; i < Model.Departments.Count; i++)
+                {
+                    <option value="@Model.Departments[i].Name">@Model.Departments[i].Name</option>
+                }
+                <option value="" selected disabled hidden>Выберите значение</option>
+            </select>
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="count">Количесвто работников в отделе</label>
+            <input class="form-input" name="count" type="number" id="count" />
+        </div>
+        <div class=" departmetns-input-wrapper departmetns-button-wrapper col-lg-3 col-md-4 col-12">
+            <input type="button" class="primary-btn" value="Поиск" onclick="searchEmployees()" />
+            <input type="reset" class="secondary-btn" value="Отменить" />
+        </div>
+    </form>
+    <div class="employees-table" id="employeesTable"></div>
+    <div class="employees-table" id="AddEmployees">
+
+    </div>
+    @{await Html.RenderPartialAsync("_partialEditEmployeesModal", Model);}
+    <section class="modal" data-modal="4" id="modalDeleteEmployees" data-background="#modalDeleteEmployees">
+        <div class="modal-content  delete-modal">
+            <div id="alerDeleteEmployees"></div>
+            <button class="modal-close" type="button" onclick="closeDeleteModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="21.213" height="21.213" viewbox="0 0 21.213 21.213"><g transform="translate(10.607) rotate(45)"><rect class="a" width="15" height="15"></rect><path class="b" d="M5.909,1.733a1.626,1.626,0,0,1,3.252,0V5.909h4.176a1.626,1.626,0,1,1,0,3.252H9.161v4.176a1.626,1.626,0,1,1-3.252,0V9.161H1.733a1.626,1.626,0,0,1,0-3.252H5.909Z" transform="translate(-0.035 -0.035)"></path></g></svg>
+            </button>
+            <div class="modal-body-choose-category" style="padding: 20px;">
+                <p class="row add-services-modal-title justify-content-center h3"><span>Удалить работника?</span></p>
+                <form id="deleteDepartmentForm">
+                    <input class="visually-hidden" id="deleteEmployeesId" />
+                    <button class="primary-btn blue" type="button" onclick="deleteEmployees()">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="modal-overlay" id="modalDeleteEmployees"></div>
+
+</section>
+
+
+<script>
+    function searchEmployees() {
+        let firstName = $('#firstName').val();
+        let lastName = $('#lastName').val();
+        let patronymic = $('#patronymic').val();
+        let departmentName = $('#departmentName').val();
+        let count = $('#count').val();
+        $.ajax({
+            url: "@Url.Action("SearchEmployees")",
+            type: 'Post',
+            data: {
+                'departmentName': departmentName,
+                'firstName': firstName,
+                'lastName': lastName,
+                'patronymic': patronymic,
+                'departmentEmployeesCount': count
+            },
+            beforeSend: Loader,
+            complete: Loader,
+            success: function (data) {
+                $('#employeesTable').html(data);
+            }
+        });
+    }
+</script>

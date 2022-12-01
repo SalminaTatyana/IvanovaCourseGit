@@ -37,17 +37,27 @@ namespace Web.Controllers
         {
             return View("Index", model);
         }
-        public async Task<IActionResult> SearchLimits(int departmentId, int value, DateTime? date)
+        public async Task<IActionResult> SearchLimits(string departmentName, int value, DateTime? date)
         {
 
-            var result = await _context.Limits.Include(s=>s.Department).Where(s => s.DepartmentId == (departmentId > 0 ? departmentId : s.DepartmentId) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsEntities().ToListAsync();
+            var result = await _context.LimitsViews.Where(s => s.DepartmentName == (!String.IsNullOrEmpty(departmentName) ? departmentName : s.DepartmentName) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsViewEntities().ToListAsync();
             model.Limits = result;
-
             return PartialView("_partialLimitsTable", model);
         }
         public IActionResult AddLimitsInfo()
         {
+
             return PartialView("_partialAddLimitsModal", model);
+        } 
+        public async Task<int> EditLimitsInfoAsync(int id)
+        {
+            if (id>0)
+            {
+                var result = await _context.Limits.FirstOrDefaultAsync(s => s.Id == id);
+
+                return result.DepartmentId;
+            }
+            return -1;
         }
         public async Task<int> AddLimits(int departmentId, int value, DateTime date)
         {

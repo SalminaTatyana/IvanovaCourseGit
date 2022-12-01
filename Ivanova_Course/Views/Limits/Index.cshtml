@@ -9,10 +9,10 @@
     <form class="departments-search-form" asp-action="SearchLimits">
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
             <label class="main-label" for="departmentName">Название отдела</label>
-            <select class="form-input form-select" id="departmentId">
+            <select class="form-input form-select" id="departmentName">
                 @for (int i = 0; i < Model.Departments.Count; i++)
                 {
-                    <option value="@Model.Departments[i].Id">@Model.Departments[i].Name</option>
+                    <option value="@Model.Departments[i].Name">@Model.Departments[i].Name</option>
                 }
                 <option value="" selected disabled hidden>Выберите значение</option>
             </select>
@@ -41,14 +41,14 @@
 <script>
     function searchLimits() {
         let date = $('#date').val();
-        let departmentId = $('#departmentId').val();
+        let departmentName = $('#departmentName').val();
         let value = $('#value').val();
         $.ajax({
             url: "@Url.Action("SearchLimits")",
             type: 'Post',
             data: {
                 'date': date,
-                'departmentId': departmentId,
+                'departmentName': departmentName,
                 'value': value
             },
             beforeSend: Loader,
