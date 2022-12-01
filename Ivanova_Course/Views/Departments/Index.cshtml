@@ -1,4 +1,8 @@
 ﻿@using Core
+@{
+
+    ViewData["Title"] = "Отделы";
+}
 <section class="departments">
     <h1 class="block-title">Отделы</h1>
     <form class="departments-search-form" asp-action="SearchDepartments">
@@ -15,9 +19,9 @@
             <input type="reset" class="secondary-btn" value="Отменить" />
         </div>
     </form>
-    <div class="departments-table" id="departmentsTable">
-
-    </div>
+    <div class="departments-table" id="departmentsTable"></div>
+    @{await Html.RenderPartialAsync("_partialAddDepartmentModal", new Department());}
+    @{await Html.RenderPartialAsync("_partialEditDepartmentModal", new Department());}
 </section>
 <script>
     function searchDepartments() {

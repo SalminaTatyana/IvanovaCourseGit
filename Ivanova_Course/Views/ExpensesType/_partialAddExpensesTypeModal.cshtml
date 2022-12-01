@@ -1,50 +1,51 @@
-﻿@model Core.Department
-<section class="modal" data-modal="1" id="modalEditDepartments" data-background="#modalEditDepartments" >
-    <div class="modal-content  edit-modal">
+﻿@model Core.ExpenseType
+<section class="modal" data-modal="1" id="modalAddDepartments" data-background="#modalAddDepartments" >
+    <div class="modal-content  add-modal">
         <button class="modal-close" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="21.213" height="21.213" viewbox="0 0 21.213 21.213"><g transform="translate(10.607) rotate(45)"><rect class="a" width="15" height="15"></rect><path class="b" d="M5.909,1.733a1.626,1.626,0,0,1,3.252,0V5.909h4.176a1.626,1.626,0,1,1,0,3.252H9.161v4.176a1.626,1.626,0,1,1-3.252,0V9.161H1.733a1.626,1.626,0,0,1,0-3.252H5.909Z" transform="translate(-0.035 -0.035)"></path></g></svg>
         </button>
-        <div id="alerEditDeparmnet"></div>
+        <div id="alerAddDeparmnet"></div>
         <div class="modal-body-choose-category " style="padding: 20px;">
-            <p class="row add-services-modal-title h3 text-center justify-content-center"><span>Добавить новый отдел?</span></p>
-            <form class="add-services-modal-input-wrapper " id="editDeparnmentForm">
+            <p class="row add-services-modal-title h3 justify-content-center"><span>Добавить тип затрат?</span></p>
+            <form class="add-services-modal-input-wrapper " id="addDeparnmentForm">
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="state">Наименование</label>
                     <input class="form-input" id="name" asp-for="Name" type="text" />
                 </div>
                 <div class="add-services-modal-input-items ">
-                    <label class="add-services-modal-label main-label" for="comment">Количество работников</label>
-                    <input class="form-input" id="employeesNumber" asp-for="EmployeesNumber" type="number" />
-                    <input class="form-input visually-hidden" id="id" asp-for="Id" type="number" />
+                    <label class="add-services-modal-label main-label" for="comment">Описание</label>
+                    <input class="form-input" id="employeesNumber" asp-for="Description" type="text" />
+
                 </div>
-                <button class="btn primary-btn" type="button" onclick="editDepartment()">Изменить</button>
+                <button class="btn primary-btn" type="button" onclick="addDepartment()">Добавить</button>
             </form>
 
         </div>
     </div>
 </section>
-<div class="modal-overlay" id="modalEditDepartments" ></div>
+<div class="modal-overlay" id="modalAddDepartments" ></div>
 <script>
-    function editDepartment() {
+    function addDepartment() {
           $.ajax({
-            url: "@Url.Action("EditDepartment")",
+            url: "@Url.Action("AddExpensesType", "ExpensesTypes")",
             type: 'GET',
-              data: $('#editDeparnmentForm').serialize(),
+              data: $('#addDeparnmentForm').serialize(),
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
+                if (data != null) {
                     if (data != -1) {
-                        msg = " Отдел изменен";
+                        msg = "Новый тип добавлен!";
                         type = "success";
                     }
-                else if (data == -1) {
-                        msg = "Название отдела не должно быть пустым";
+                    else {
+                        msg = "Название не должно быть пустым";
                         type = data > 1 ? "warning " : "danger";
                     }
+                }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
-                flashMessage('#alerEditDeparmnet', msg, type);
-                searchDepartments();
-
+                flashMessage('#alerAddDeparmnet', msg, type);
+                searchExpensesType()
             }
         });
     }

@@ -230,3 +230,48 @@ ul li:nth-of-type(3n)::before {
         line-height: 20px;
     }
 }
+
+.breadcrumbs {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 43px 0 0 34px;
+
+    li {
+        margin-bottom: 5px;
+
+        &::before {
+            display: none;
+        }
+
+        &::after {
+            content: "/";
+            margin: 0 3px;
+            color: $white-violet;
+        }
+
+        &:last-of-type::after {
+            content: "";
+        }
+
+        a {
+            font-size: $text;
+            line-height: 16px;
+            font-weight: 500;
+            color: $white-violet;
+            -webkit-transition: all 0.2s ease;
+            -o-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+            cursor: pointer;
+
+            &:hover,
+            &:focus,
+            &.active {
+                color: $light-green;
+                border-bottom: none;
+            }
+        }
+    }
+}

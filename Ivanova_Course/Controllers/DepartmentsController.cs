@@ -26,39 +26,14 @@ namespace Web.Controllers
         {
             DepartmentsModel model = new DepartmentsModel();
             model.Departments = new List<Departments>();
-            if (!String.IsNullOrEmpty(name) && number>0)
-            {
-                var result = await _context.Departments.Where(s => s.Name == name && s.EmployeesNumber == number).DepartmentsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    model.Departments.Add(result[i]);
-                }
-            }
-            else if (!String.IsNullOrEmpty(name))
-            {
-                var result = await _context.Departments.Where(s => s.Name == name ).DepartmentsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    model.Departments.Add(result[i]);
-                }
-            }
-            else if (number > 0)
-            {
-                var result = await _context.Departments.Where(s => s.EmployeesNumber == number).DepartmentsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    model.Departments.Add(result[i]);
-                }
-            }
-            else
-            {
-                var result = await _context.Departments.DepartmentsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    model.Departments.Add(result[i]);
-                }
-            }
             
+                var result = await _context.Departments.Where(s => s.Name == (!String.IsNullOrEmpty(name)  ? name : s.Name) && s.EmployeesNumber == (number>0? number:s.EmployeesNumber)).DepartmentsEntities().ToListAsync();
+                for (int i = 0; i < result.Count; i++)
+                {
+                    model.Departments.Add(result[i]);
+                }
+
+
             return PartialView("_partialDepartmentsTable", model);
         }
         public async Task<int> AddDepartment(Department addInfo)

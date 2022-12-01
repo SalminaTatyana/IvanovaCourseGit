@@ -1,4 +1,4 @@
-﻿@model Core.Department
+﻿@model Core.ExpenseType
 <section class="modal" data-modal="1" id="modalEditDepartments" data-background="#modalEditDepartments" >
     <div class="modal-content  edit-modal">
         <button class="modal-close" type="button">
@@ -6,18 +6,18 @@
         </button>
         <div id="alerEditDeparmnet"></div>
         <div class="modal-body-choose-category " style="padding: 20px;">
-            <p class="row add-services-modal-title h3 text-center justify-content-center"><span>Добавить новый отдел?</span></p>
-            <form class="add-services-modal-input-wrapper " id="editDeparnmentForm">
+            <p class="row add-services-modal-title h3 justify-content-center"><span>Изменить тип затрат?</span></p>
+            <form class="add-services-modal-input-wrapper " id="editExpensesTypeForm">
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="state">Наименование</label>
                     <input class="form-input" id="name" asp-for="Name" type="text" />
                 </div>
                 <div class="add-services-modal-input-items ">
-                    <label class="add-services-modal-label main-label" for="comment">Количество работников</label>
-                    <input class="form-input" id="employeesNumber" asp-for="EmployeesNumber" type="number" />
+                    <label class="add-services-modal-label main-label" for="comment">Описание</label>
+                    <input class="form-input" id="employeesNumber" asp-for="Description" type="text" />
                     <input class="form-input visually-hidden" id="id" asp-for="Id" type="number" />
                 </div>
-                <button class="btn primary-btn" type="button" onclick="editDepartment()">Изменить</button>
+                <button class="btn primary-btn" type="button" onclick="editDepartment()">Добавить</button>
             </form>
 
         </div>
@@ -27,24 +27,23 @@
 <script>
     function editDepartment() {
           $.ajax({
-            url: "@Url.Action("EditDepartment")",
+            url: "@Url.Action("EditExpensesType", "ExpensesTypes")",
             type: 'GET',
-              data: $('#editDeparnmentForm').serialize(),
+              data: $('#editExpensesTypeForm').serialize(),
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
                     if (data != -1) {
-                        msg = " Отдел изменен";
+                        msg = " Тип изменен";
                         type = "success";
                     }
                 else if (data == -1) {
-                        msg = "Название отдела не должно быть пустым";
+                        msg = "Название не должно быть пустым";
                         type = data > 1 ? "warning " : "danger";
                     }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
                 flashMessage('#alerEditDeparmnet', msg, type);
-                searchDepartments();
-
+                searchExpensesType()
             }
         });
     }

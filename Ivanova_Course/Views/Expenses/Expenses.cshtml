@@ -1,9 +1,5 @@
 ﻿@using Core
 @model LimitsModel
-@{
-
-    ViewData["Title"] = "Лимиты";
-}
 <section class="limits">
     <h1 class="block-title">Лимиты</h1>
     <form class="departments-search-form" asp-action="SearchLimits">
@@ -34,9 +30,8 @@
     <div class="limits-table" id="AddLimits">
 
     </div>
-    @{await Html.RenderPartialAsync("_partialEditLimitsModal", Model);}
 </section>
-
+@{await Html.RenderPartialAsync("_partialEditLimitsModal", Model);}
 
 <script>
     function searchLimits() {

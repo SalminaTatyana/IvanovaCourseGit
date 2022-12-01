@@ -6,7 +6,7 @@
         </button>
         <div id="alerAddDeparmnet"></div>
         <div class="modal-body-choose-category " style="padding: 20px;">
-            <p class="row add-services-modal-title"><span>Добавить новый отдел?</span></p>
+            <p class="row add-services-modal-title h3 justify-content-center"><span>Добавить новый отдел?</span></p>
             <form class="add-services-modal-input-wrapper " id="addDeparnmentForm">
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="state">Наименование</label>
@@ -45,6 +45,7 @@
                 }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
                 flashMessage('#alerAddDeparmnet', msg, type);
+                searchDepartments();
             }
         });
     }

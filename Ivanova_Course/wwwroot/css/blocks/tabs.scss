@@ -1,0 +1,115 @@
+﻿.tabs {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 32px 0 22px;
+
+    > li {
+        width: calc(16.6% - 20px);
+        margin: 0 10px 20px;
+
+        &::before {
+            display: none;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.tab-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 5px 10px 9px;
+    font-size: $text;
+    font-weight: 700;
+    text-align: center;
+    color: $white;
+    background-color: $light-blue;
+    border-radius: $first-radius;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus,
+    &.active {
+        background-color: $light-violet;
+        color: white;
+    }
+}
+
+.tab-item-counter {
+    position: absolute;
+    top: -12px;
+    right: -11px;
+}
+
+@media (max-width: 1665px) {
+    .tabs > li {
+        width: calc(20% - 20px);
+    }
+}
+
+@media screen and (max-width: 1549px) {
+    .tabs {
+        margin-left: 4px;
+    }
+}
+
+@media (max-width: 1365px) {
+    .tabs > li {
+        width: calc(25% - 20px);
+    }
+}
+
+@media (max-width: 767px) {
+    .tabs {
+        margin: 32px -10px 0;
+
+        > li {
+            width: calc(50% - 20px);
+        }
+    }
+}
+
+@media (max-width: 479px) {
+    .tabs {
+        margin: 32px 0 0 0;
+
+        > li {
+            width: 100%;
+            margin: 0 0 15px;
+        }
+    }
+}
+
+.tab-item.active-item,
+.tab-item.active {
+    color: #fff;
+    background-color: $green;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    border-color: $light-green;
+
+    &:hover, &:focus {
+        color: #fff;
+        background-color: $light-green;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+#tab-videoInstruction, #tab-answers {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+

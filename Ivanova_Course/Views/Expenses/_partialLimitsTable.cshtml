@@ -1,7 +1,7 @@
-﻿@model DepartmentsModel
+﻿@model LimitsModel
 @using Core
-<button class="primary-btn" onclick="$('#modalAddDepartments').data('ModalWindow').open();">Добавить отдел</button>
-@if (Model == null || Model.Departments.Count == 0)
+<button class="primary-btn" onclick="addLimits()">Добавить Лимит</button>
+@if (Model == null || Model.Limits.Count == 0)
 {
     <div class="info-msg">Данные не найдены</div>
 }
@@ -19,17 +19,27 @@ else
                 <div class="table-td">
                     Количество работников
                 </div>
+                <div class="table-td">
+                    Лимит на отдел
+                </div>
+                <div class="table-td">
+                    Период
+                </div>
             </div>
         </div>
         <div class="table-body">
-            @for (int i = 0; i < Model.Departments.Count; i++)
+            @for (int i = 0; i < Model.Limits.Count; i++)
             {
                 <div class="table-row">
                     <div class="table-td table-button-td">
                         <button class="table-edit"
-                                data-id="@Model.Departments[i].Id"
-                                data-name="@Model.Departments[i].Name"
-                                data-number="@Model.Departments[i].EmployeesNumber"
+                                data-id="@Model.Limits[i].Id"
+                                data-departmentname="@Model.Limits[i].DepartmentName"
+                                data-departmentid="@Model.Limits[i].DepartmentId"
+                                data-limitsvalue="@Model.Limits[i].Value"
+                                data-daylimits="@Model.Limits[i].Date.Day"
+                                data-monthlimits="@Model.Limits[i].Date.Month"
+                                data-yearlimits="@Model.Limits[i].Date.Year"
                                 data-toggle="modal"
                                 title="Редактировать">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -51,15 +61,21 @@ else
                         </button>
                     </div>
                     <div class="table-td table-button-td">
-                        <button class="table-delete" data-id="@Model.Departments[i].Id">
+                        <button class="table-delete" data-id="@Model.Limits[i].Id">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21.213" height="21.213" viewbox="0 0 21.213 21.213"><g transform="translate(10.607) rotate(45)"><rect class="a" width="15" height="15"></rect><path class="b" d="M5.909,1.733a1.626,1.626,0,0,1,3.252,0V5.909h4.176a1.626,1.626,0,1,1,0,3.252H9.161v4.176a1.626,1.626,0,1,1-3.252,0V9.161H1.733a1.626,1.626,0,0,1,0-3.252H5.909Z" transform="translate(-0.035 -0.035)"></path></g></svg>
                         </button>
                     </div>
                     <div class="table-td">
-                        @Model.Departments[i].Name
+                        @Model.Limits[i].DepartmentName
                     </div>
                     <div class="table-td">
-                        @Model.Departments[i].EmployeesNumber
+                        @Model.Limits[i].DepartmentEmployeesCount
+                    </div>
+                    <div class="table-td">
+                        @Model.Limits[i].Value
+                    </div>
+                    <div class="table-td">
+                        @Model.Limits[i].Date.ToShortDateString()
                     </div>
                 </div>
             }
@@ -67,48 +83,63 @@ else
     </div>
 
 }
-<section class="modal" data-modal="1" id="modalDeleteDepartments" data-background="#modalDeleteDepartments">
+<section class="modal" data-modal="1" id="modalDeleteLimits" data-background="#modalDeleteLimits">
     <div class="modal-content  delete-modal">
-        <div id="alerDeleteDeparmnet"></div>
-        <button class="modal-close" type="button">
+        <div id="alerDeleteLimits"></div>
+        <button class="modal-close" type="button" onclick="closeDeleteModal()">
             <svg xmlns="http://www.w3.org/2000/svg" width="21.213" height="21.213" viewbox="0 0 21.213 21.213"><g transform="translate(10.607) rotate(45)"><rect class="a" width="15" height="15"></rect><path class="b" d="M5.909,1.733a1.626,1.626,0,0,1,3.252,0V5.909h4.176a1.626,1.626,0,1,1,0,3.252H9.161v4.176a1.626,1.626,0,1,1-3.252,0V9.161H1.733a1.626,1.626,0,0,1,0-3.252H5.909Z" transform="translate(-0.035 -0.035)"></path></g></svg>
         </button>
         <div class="modal-body-choose-category" style="padding: 20px;">
-            <p class="row add-services-modal-title h3 justify-content-center"><span>Удалить отдел?</span></p>
+            <p class="row add-services-modal-title"><span>Удалить отдел?</span></p>
             <form id="deleteDepartmentForm">
-                <input class="visually-hidden" id="deleteDepartmentId" />
-                <button class="primary-btn blue" type="button" onclick="deleteDepartment()">Удалить</button>
+                <input class="visually-hidden" id="deleteLimitsId" />
+                <button class="primary-btn blue" type="button" onclick="deleteLimits()">Удалить</button>
             </form>
         </div>
     </div>
 </section>
-<div class="modal-overlay" id="modalDeleteDepartments"></div>
-
-
-
+<div class="modal-overlay" id="modalDeleteLimits"></div>
 <script src="~/js/modal.js" defer asp-append-version="true"></script>
 <script src="~/js/flashMessage.js" defer asp-append-version="true"></script>
 <script>
+    function parseDate(day, month, year) {
+        const date = year + '-' + month + '-' + day;
+        return date;
+    }
     $(".table-edit").on('click', function () {
         var Id = $(this).data('id');
-        var Name = $(this).data('name');
-        var EmployeesNumber = $(this).data('number');
-        $('.edit-modal #id').val(Id);
-        $('.edit-modal #name').val(Name);
-        $('.edit-modal #employeesNumber').val(EmployeesNumber);
-        $('#modalEditDepartments').data('ModalWindow').open();
+        var departmentId = $(this).data('departmentid');
+        var editlimitValue = $(this).data('limitsvalue');
+        var dayLimit =$(this).data('daylimits');
+        var monthLimit =$(this).data('monthlimits');
+        var yearLimit =$(this).data('yearlimits');
+        $('.edit-modal #editId').val(Id);
+        $('.edit-modal #editDepartmentId').val(departmentId);
+        $('.edit-modal #editlimitValue').val(editlimitValue);
+        $('#editDateLimits').val(parseDate(dayLimit, monthLimit, yearLimit));
+        $('#modalEditLimits').data('ModalWindow').open();
     });
     $(".table-delete").on('click', function () {
         var Id = $(this).data('id');
-        $('#deleteDepartmentId').val(Id);
-        $('#modalDeleteDepartments').data('ModalWindow').open();
-
+        $('#deleteLimitsId').val(Id);
+        $('#modalDeleteLimits').data('ModalWindow').open();
     });
-    function deleteDepartment() {
+    function addLimits() {
         $.ajax({
-            url: "@Url.Action("DeleteDepartment")",
+            url: "@Url.Action("AddLimitsInfo")",
             type: 'GET',
-            data: {'id': $('#deleteDepartmentId').val() },
+            beforeSend: Loader,
+            complete: Loader,
+            success: function (data) {
+                $('#AddLimits').html(data);
+            }
+        });
+    }
+    function deleteLimits() {
+        $.ajax({
+            url: "@Url.Action("DeleteLimits")",
+            type: 'GET',
+            data: { 'id': $('#deleteLimitsId').val() },
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
@@ -121,11 +152,13 @@ else
                      type = data > 1 ? "warning " : "danger";
                  }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
-                flashMessage('#alerDeleteDeparmnet', msg, type);
-                searchDepartments();
-
+                flashMessage('#alerDeleteLimits', msg, type);
             }
         });
+    }
+    function closeDeleteModal() {
+        $('#modalDeleteLimits').data('ModalWindow').close();
+        searchLimits()
     }
 </script>
 

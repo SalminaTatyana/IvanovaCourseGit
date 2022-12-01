@@ -1,5 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
+    ViewData["Title"] = "Траты";
+    ViewData["selectedTabStrip"] = "expenses-types";
 }
+<ul class="breadcrumbs">
+    <li><a asp-controller="Home" asp-action="Index">Главная</a></li>
+    <li>
+        <a class="active">@ViewData["Title"]</a>
+    </li>
+</ul>
+
+<section class="expenses">
+    <h1 class="block-title">Траты</h1>
+    <div id="expenses-tabstrip" data-selected="@ViewData["selectedTabStrip"]">
+        <ul class="tabs expenses-tabstrip-tabs">
+            <li><a class="tab-item expenses-types" onclick="setActiveTab('expenses-types');" href="#expenses-types">Типы трат</a></li>
+            <li><a class="tab-item expenses-department" onclick="setActiveTab('expenses-department')" href="#expenses-department">Траты по отделам</a></li>
+            <li><a class="tab-item expenses-limits-department" onclick="setActiveTab('expenses-limits-department')" href="#expenses-limits-department">Траты и остатки по отделам</a></li>
+
+        </ul>
+
+
+        <div id="expenses-types">
+            @{await Html.RenderPartialAsync("~/Views/ExpensesType/Index.cshtml", new ExpensesTypeModel());}
+
+        </div>
+        <div id="expenses-department">
+            <div class="add-services-button-wrapper">
+                <button class="secondary-btn" data-toggle="modal" data-target="#modalSearchPaymentServices" id="paymentServicesSearchButton">Поиск</button>
+            </div>
+        </div>
+        <div id="expenses-limits-department">
+            <div class="add-services-button-wrapper">
+                <button class="secondary-btn" data-toggle="modal" data-target="#modalSearchServiceSettings" id="serviceSettingsSearchButton">Поиск</button>
+            </div>
+        </div>
+        <div id="expenses-item"></div>
+    </div>
+</section>
+<script src="~/lib/jquery-ui/jquery-ui.min.js" defer asp-append-version="true"></script>
+<script src="~/js/modal.js" defer asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        addServicesInit();
+    });
+
+    function setActiveTab(tabActiveClass) {
+        tabActiveClass = tabActiveClass || 'expenses-types';
+        if ($('#expenses-tabstrip').find('.active').length) {
+            $('#expenses-tabstrip').find('.active').removeClass('active');
+        }
+        $('.' + tabActiveClass).addClass('active');
+        $('#expenses-item').html('');
+
+    }
+
+    function isAddServicesTabs() {
+        return $("#expenses-tabstrip").length == 1;
+    }
+
+    function tabStripInit() {
+        if (isAddServicesTabs()) {
+            var selected = $('#expenses-tabstrip').data('selected');
+            $("#expenses-tabstrip").tabs();
+            $('.' + selected).trigger('click');
+        }
+    }
+
+    function addServicesInit() {
+        tabStripInit();
+    }
+
+   
+</script>
