@@ -8,10 +8,6 @@ using Core;
 
 namespace Web.Models
 {
-    public class ExpensesTypeModel
-    {
-        public List<ExpensesTypes> ExpensensTypes { get; set; }
-    }
     public class ExpensesTypes
     {
         public int Id { get; set; }

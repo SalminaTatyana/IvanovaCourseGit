@@ -19,21 +19,14 @@
             <li><a class="tab-item expenses-limits-department" onclick="setActiveTab('expenses-limits-department')" href="#expenses-limits-department">Траты и остатки по отделам</a></li>
 
         </ul>
-
-
         <div id="expenses-types">
-            @{await Html.RenderPartialAsync("~/Views/ExpensesType/Index.cshtml", new ExpensesTypeModel());}
-
+            @{await Html.RenderPartialAsync("~/Views/ExpensesType/Index.cshtml");}
         </div>
         <div id="expenses-department">
-            <div class="add-services-button-wrapper">
-                <button class="secondary-btn" data-toggle="modal" data-target="#modalSearchPaymentServices" id="paymentServicesSearchButton">Поиск</button>
-            </div>
+            
         </div>
         <div id="expenses-limits-department">
-            <div class="add-services-button-wrapper">
-                <button class="secondary-btn" data-toggle="modal" data-target="#modalSearchServiceSettings" id="serviceSettingsSearchButton">Поиск</button>
-            </div>
+            @{await Html.RenderPartialAsync("~/Views/Expenses/DepartmentExpouses.cshtml");}
         </div>
         <div id="expenses-item"></div>
     </div>

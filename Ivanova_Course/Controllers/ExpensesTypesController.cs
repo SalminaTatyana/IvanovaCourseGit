@@ -24,12 +24,11 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> SearchExpensesType(string name,  string description)
         {
-            ExpensesTypeModel model = new ExpensesTypeModel();
-            model.ExpensensTypes = new List<ExpensesTypes>();
+            List<ExpensesTypes> model = new List<ExpensesTypes>();
             var result = await _context.ExpenseTypes.Where(s=>s.Name == (!String.IsNullOrEmpty(name) ? name : s.Name) && s.Description == (!String.IsNullOrEmpty(description) ? description : s.Description)).ExpensesTypesEntities().ToListAsync();
             for (int i = 0; i < result.Count; i++)
             {
-                model.ExpensensTypes.Add(result[i]);
+                model.Add(result[i]);
             }
             return PartialView("~/Views/ExpensesType/_partialExpensesTypeTable.cshtml", model);
         }
