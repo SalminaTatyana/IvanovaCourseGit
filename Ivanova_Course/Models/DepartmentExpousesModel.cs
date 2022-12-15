@@ -11,6 +11,7 @@ namespace Web.Models
     }
     public class DepartmentExpouses
     {
+        public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public int? Sum { get; set; }
         public int Value { get; set; }

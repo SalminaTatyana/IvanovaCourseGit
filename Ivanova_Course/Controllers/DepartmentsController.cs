@@ -24,13 +24,11 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> SearchDepartments (string name, int number)
         {
-            DepartmentsModel model = new DepartmentsModel();
-            model.Departments = new List<Departments>();
-            
+            List<Departments> model = new List<Departments>();
                 var result = await _context.Departments.Where(s => s.Name == (!String.IsNullOrEmpty(name)  ? name : s.Name) && s.EmployeesNumber == (number>0? number:s.EmployeesNumber)).DepartmentsEntities().ToListAsync();
                 for (int i = 0; i < result.Count; i++)
                 {
-                    model.Departments.Add(result[i]);
+                    model.Add(result[i]);
                 }
 
 

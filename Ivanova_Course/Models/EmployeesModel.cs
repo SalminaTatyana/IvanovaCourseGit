@@ -8,11 +8,6 @@ using Core;
 
 namespace Web.Models
 {
-    public class EmployeesModel
-    {
-        public List<Employees> Employees { get; set; }
-        public List<Department> Departments { get; set; }
-    }
     public class Employees
     {
         public int Id { get; set; }
@@ -45,6 +40,7 @@ namespace Web.Models
         {
             get => new MapperConfiguration(cfg =>
                     cfg.CreateMap<EmployeesView, Employees>()
+                    .ForMember(request => request.DepartmentId, conf => conf.MapFrom(filter => filter.DepartmentId))
                     .ForMember(request => request.DepartmentName, conf => conf.MapFrom(filter => filter.DepartmentName))
                     .ForMember(request => request.Id, conf => conf.MapFrom(filter => filter.Id))
                     .ForMember(request => request.FirstName, conf => conf.MapFrom(filter => filter.FirstName))

@@ -937,8 +937,6 @@ header {
 
 .departments {
   margin: 35px 20px 20px 50px; }
-  .departments .modal .primary-btn {
-    margin-top: 20px; }
 
 .departmetns-button-wrapper {
   display: flex; }
@@ -1069,8 +1067,6 @@ header {
 
 .limits {
   margin: 35px 20px 20px 50px; }
-  .limits .modal .primary-btn {
-    margin-top: 20px; }
 
 .limits-button-wrapper {
   display: flex; }
@@ -1167,10 +1163,6 @@ header {
 
 .expenses {
   margin: 35px 20px 20px 50px; }
-  .expenses .modal .primary-btn {
-    margin-top: 20px; }
 
 .employees {
   margin: 35px 20px 20px 50px; }
-  .employees .modal .primary-btn {
-    margin-top: 20px; }

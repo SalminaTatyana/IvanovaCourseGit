@@ -14,39 +14,27 @@ namespace Web.Controllers
     {
         private readonly Ivanova_AS41_courseContext _context;
 
-        public Task<List<Departments>> departmentName;
-        public EmployeesModel model = new EmployeesModel();
 
+        public List<Employees> model = new List<Employees>();
         public EmployeesController(Ivanova_AS41_courseContext context)
         {
             _context = context;
-            departmentName = _context.Departments.DepartmentsEntities().ToListAsync();
-            model.Departments = new List<Department>();
-            for (int i = 0; i < departmentName.Result.Count; i++)
-            {
-                model.Departments.Add(new Department());
-
-                model.Departments[i].Id = departmentName.Result[i].Id;
-
-                model.Departments[i].Name = departmentName.Result[i].Name;
-
-            }
         }
 
         public IActionResult Index()
         {
             return View("Index", model);
         }
-        public async Task<IActionResult> SearchEmployees(string departmentName, string firstName, string lastName, string patronymic,int departmentEmployeesCount)
+        public async Task<IActionResult> SearchEmployees(int departmentName, string firstName, string lastName, string patronymic,int departmentEmployeesCount)
         {
 
             var result = await _context.EmployeesViews.Where(
-                s => s.DepartmentName == (!String.IsNullOrEmpty(departmentName) ? departmentName : s.DepartmentName) &&
+                s => s.DepartmentId == (departmentName>0 ? departmentName : s.DepartmentId) &&
                 s.FirstName == (!String.IsNullOrEmpty(firstName) ? firstName : s.FirstName)&&
                 s.LastName == (!String.IsNullOrEmpty(lastName) ? lastName : s.LastName)&&
                 s.Patronymic == (!String.IsNullOrEmpty(patronymic) ? patronymic : s.Patronymic)&&
                 s.DepartmentEmployeesCount == (departmentEmployeesCount>0 ? departmentEmployeesCount : s.DepartmentEmployeesCount)).EmployeesViewEntities().ToListAsync();
-            model.Employees = result;
+            model = result;
             return PartialView("_partialEmployeesTable", model);
         }
         public IActionResult AddEmployeesInfo()

@@ -8,11 +8,6 @@ using Core;
 
 namespace Web.Models
 {
-    public class LimitsModel
-    {
-        public List<Limits> Limits;
-        public List<Department> Departments;
-    }
     public class Limits
     {
         public int Id { get; set; }
@@ -45,6 +40,7 @@ namespace Web.Models
             get => new MapperConfiguration(cfg =>
                     cfg.CreateMap<LimitsView, Limits>()
                     .ForMember(request => request.DepartmentName, conf => conf.MapFrom(filter => filter.DepartmentName))
+                    .ForMember(request => request.DepartmentId, conf => conf.MapFrom(filter => filter.DepartmentId))
                     .ForMember(request => request.Id, conf => conf.MapFrom(filter => filter.Id))
                     .ForMember(request => request.Value, conf => conf.MapFrom(filter => filter.Value))
                     .ForMember(request => request.Date, conf => conf.MapFrom(filter => filter.Date))

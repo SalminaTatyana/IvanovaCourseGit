@@ -15,7 +15,7 @@ namespace Web.Controllers
         private readonly Ivanova_AS41_courseContext _context;
 
         public ExpensesViewModel allExpenses;
-        public LimitsModel model = new LimitsModel();
+        public Limits model = new Limits();
 
         public ExpensesController(Ivanova_AS41_courseContext context)
         {

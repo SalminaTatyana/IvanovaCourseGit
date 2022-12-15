@@ -8,10 +8,6 @@ using Core;
 
 namespace Web.Models
 {
-    public class DepartmentsModel
-    {
-        public List<Departments> Departments;
-    }
     public class Departments
     {
         public int Id { get; set; }

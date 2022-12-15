@@ -8,6 +8,7 @@ namespace Core
     public partial class LimitsView
     {
         public int Id { get; set; }
+        public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public int DepartmentEmployeesCount { get; set; }
         public DateTime Date { get; set; }

@@ -22,6 +22,7 @@ namespace Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
+        public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public int DepartmentEmployeesNumber { get; set; }
         public int Sum { get; set; }
@@ -43,6 +44,7 @@ namespace Web.Models
                     .ForMember(request => request.FirstName, conf => conf.MapFrom(filter => filter.Employee.FirstName))
                     .ForMember(request => request.LastName, conf => conf.MapFrom(filter => filter.Employee.LastName))
                     .ForMember(request => request.Patronymic, conf => conf.MapFrom(filter => filter.Employee.Patronymic))
+                    .ForMember(request => request.DepartmentId, conf => conf.MapFrom(filter => filter.Employee.Department.Id))
                     .ForMember(request => request.DepartmentName, conf => conf.MapFrom(filter => filter.Employee.Department.Name))
                     .ForMember(request => request.DepartmentEmployeesNumber, conf => conf.MapFrom(filter => filter.Employee.Department.EmployeesNumber))
                     .ForMember(request => request.Sum, conf => conf.MapFrom(filter => filter.Sum))

@@ -1,4 +1,4 @@
-﻿@model LimitsModel
+﻿@model List<Limits>
 <section class="modal" data-modal="1" id="modalEditLimits" data-background="#modalEditLimits" >
     <div class="modal-content  edit-modal">
         <button class="modal-close" type="button">
@@ -11,12 +11,8 @@
                 <div class="add-services-modal-input-items ">
                     <input class="form-input visually-hidden" id="editId" type="number" />
                     <label class="add-services-modal-label main-label" for="departmentId">Наименование отдела</label>
-                    <select class="form-input form-select" id="editDepartmentId">
-                        @for (int i = 0; i < Model.Departments.Count; i++)
-                        {
-                            <option value="@Model.Departments[i].Id"> @Model.Departments[i].Name </option>
-                        }
-                    </select>
+                    @await Component.InvokeAsync("Department")
+
                 </div>
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="editlimitValue">Лимит на отдел</label>

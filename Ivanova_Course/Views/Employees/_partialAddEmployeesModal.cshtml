@@ -1,7 +1,6 @@
-﻿@model EmployeesModel
-<section class="modal" data-modal="1" id="modalAddEmployees" data-background="#modalAddEmployees">
+﻿<section class="modal" data-modal="1" id="modalAddEmployees" data-background="#modalAddEmployees">
     <div class="modal-content  add-modal">
-        <button class="modal-close" type="button">
+        <button class="modal-close" type="button" onclick="closeModalAdd()">
             <svg xmlns="http://www.w3.org/2000/svg" width="21.213" height="21.213" viewbox="0 0 21.213 21.213"><g transform="translate(10.607) rotate(45)"><rect class="a" width="15" height="15"></rect><path class="b" d="M5.909,1.733a1.626,1.626,0,0,1,3.252,0V5.909h4.176a1.626,1.626,0,1,1,0,3.252H9.161v4.176a1.626,1.626,0,1,1-3.252,0V9.161H1.733a1.626,1.626,0,0,1,0-3.252H5.909Z" transform="translate(-0.035 -0.035)"></path></g></svg>
         </button>
         <div id="alerAddEmployees"></div>
@@ -25,14 +24,14 @@
                 </div>
                 <div class="add-services-modal-input-items ">
                     <label class="add-services-modal-label main-label" for="departmentId">Наименование отдела</label>
-                    <select class="form-input form-select" id="addDepartmentId">
-                        @for (int i = 0; i < Model.Departments.Count; i++)
-                        {
-                            <option value="@Model.Departments[i].Id"> @Model.Departments[i].Name </option>
-                        }
-                    </select>
+                    @await Component.InvokeAsync("Department")
                 </div>
-                <button class="btn primary-btn" type="button" onclick="addEmployees()">Добавить</button>
+                <div class="d-flex justify-content-between align-baseline mt-3">
+                    <button class="btn primary-btn mr-1 flex-grow-1" type="button" onclick="addEmployees()">Добавить</button>
+                    <button class="btn secondary-btn ml-1 flex-grow-1" type="button" onclick="closeModalAdd()">Отменить</button>
+                </div>
+                
+
             </form>
 
         </div>
@@ -77,5 +76,9 @@
                 searchEmployees();
           }
         });
+    }
+    function closeModalAdd() {
+        $('#modalAddEmployees').data('ModalWindow').close();
+        $('#alerAddEmployees').html('');
     }
 </script>

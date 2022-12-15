@@ -15,33 +15,22 @@ namespace Web.Controllers
         private readonly Ivanova_AS41_courseContext _context;
 
         public Task<List<Departments>> departmentName;
-        public LimitsModel model = new LimitsModel();
+        public List<Limits> model = new List<Limits>();
 
         public LimitsController(Ivanova_AS41_courseContext context)
         {
             _context = context;
-            departmentName = _context.Departments.DepartmentsEntities().ToListAsync();
-            model.Departments = new List<Department>();
-            for (int i = 0; i < departmentName.Result.Count; i++)
-            {
-                model.Departments.Add(new Department());
-
-                model.Departments[i].Id = departmentName.Result[i].Id;
-
-                model.Departments[i].Name = departmentName.Result[i].Name;
-
-            }
         }
 
         public IActionResult Index()
         {
             return View("Index", model);
         }
-        public async Task<IActionResult> SearchLimits(string departmentName, int value, DateTime? date)
+        public async Task<IActionResult> SearchLimits(int departmentName, int value, DateTime? date)
         {
 
-            var result = await _context.LimitsViews.Where(s => s.DepartmentName == (!String.IsNullOrEmpty(departmentName) ? departmentName : s.DepartmentName) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsViewEntities().ToListAsync();
-            model.Limits = result;
+            var result = await _context.LimitsViews.Where(s => s.DepartmentId == (departmentName>0 ? departmentName : s.DepartmentId) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsViewEntities().ToListAsync();
+            model = result;
             return PartialView("_partialLimitsTable", model);
         }
         public IActionResult AddLimitsInfo()

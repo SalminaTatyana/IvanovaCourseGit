@@ -1,5 +1,5 @@
 ﻿@using Core
-@model EmployeesModel
+@model List<Employees>
 @{
 
     ViewData["Title"] = "Работники";
@@ -22,13 +22,7 @@
 
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
             <label class="main-label" for="departmentName">Название отдела</label>
-            <select class="form-input form-select" id="departmentName">
-                @for (int i = 0; i < Model.Departments.Count; i++)
-                {
-                    <option value="@Model.Departments[i].Name">@Model.Departments[i].Name</option>
-                }
-                <option value="" selected disabled hidden>Выберите значение</option>
-            </select>
+            @await Component.InvokeAsync("Department")
         </div>
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
             <label class="main-label" for="count">Количесвто работников в отделе</label>
@@ -54,7 +48,11 @@
                 <p class="row add-services-modal-title justify-content-center h3"><span>Удалить работника?</span></p>
                 <form id="deleteDepartmentForm">
                     <input class="visually-hidden" id="deleteEmployeesId" />
-                    <button class="primary-btn blue" type="button" onclick="deleteEmployees()">Удалить</button>
+                    <div class="d-flex justify-content-between align-baseline mt-3">
+
+                        <button class="primary-btn blue mr-1 flex-grow-1" type="button" onclick="deleteEmployees()">Удалить</button>
+                        <button class="btn secondary-btn ml-1 flex-grow-1" type="button" onclick="closeModalDelete()">Отменить</button>
+                        </div>
                 </form>
             </div>
         </div>
@@ -87,5 +85,9 @@
                 $('#employeesTable').html(data);
             }
         });
+    }
+    function closeModalDelete() {
+        $('#modalDeleteEmployees').data('ModalWindow').close();
+        $('#alerDeleteEmployees').html('');
     }
 </script>
