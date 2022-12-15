@@ -29,7 +29,10 @@
                 <p class="row add-services-modal-title"><span>Удалить тип затрат?</span></p>
                 <form id="deleteDepartmentForm">
                     <input class="visually-hidden" id="deleteExpensesTypeId" />
-                    <button class="primary-btn blue" type="button" onclick="deleteExpensesType()">Удалить</button>
+                    <div class="d-flex justify-content-between align-baseline mt-3">
+                        <button class="primary-btn blue mr-1 flex-grow-1" type="button" onclick="deleteExpensesType()">Удалить</button>
+                        <button class="btn secondary-btn ml-1 flex-grow-1" type="button" onclick="closeModalDelete()">Отменить</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -53,5 +56,9 @@
                 $('#departmentsTable').html(data);
             }
         });
+    }
+    function closeModalDelete() {
+        $('#modalDeleteExpensesType').data('ModalWindow').close();
+        $('#alerDeleteExpensesType').html('');
     }
 </script>

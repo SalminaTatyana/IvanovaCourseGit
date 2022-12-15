@@ -1,6 +1,6 @@
 ﻿@model ExpensesTypeModel
 @using Core
-<button class="primary-btn" onclick="$('#modalAddDepartments').data('ModalWindow').open();">Добавить тип трат</button>
+<button class="primary-btn" onclick="$('#modalAddExpensesType').data('ModalWindow').open();">Добавить тип трат</button>
 @if (Model == null || Model.ExpensensTypes.Count == 0)
 {
     <div class="info-msg">Данные не найдены</div>
@@ -81,7 +81,7 @@ else
         $('.edit-modal #id').val(Id);
         $('.edit-modal #name').val(Name);
         $('.edit-modal #employeesNumber').val(EmployeesNumber);
-        $('#modalEditDepartments').data('ModalWindow').open();
+        $('#modalEditExpensesType').data('ModalWindow').open();
     });
     $(".table-delete").on('click', function () {
         var Id = $(this).data('id');
