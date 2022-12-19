@@ -7,7 +7,7 @@ namespace Web.Models
 {
     public class ExpensesViewModel
     {
-        public ExpensesModel ExpensesModel;
+       
 
     }
 }

@@ -23,7 +23,7 @@
             @{await Html.RenderPartialAsync("~/Views/ExpensesType/Index.cshtml");}
         </div>
         <div id="expenses-department">
-            
+            @{await Html.RenderPartialAsync("~/Views/Expenses/Expenses.cshtml");}
         </div>
         <div id="expenses-limits-department">
             @{await Html.RenderPartialAsync("~/Views/Expenses/DepartmentExpouses.cshtml");}

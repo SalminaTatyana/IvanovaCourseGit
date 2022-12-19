@@ -42,7 +42,7 @@ namespace Web.Controllers
             {
                 model.Add(result[i]);
             }
-            return PartialView("_partialDepartmentExpousesTable", model);
+            return PartialView("_partialDepartmentExpousesTable.cshtml", model);
         }
         public async Task<int> AddDepartmentExpouses(ExpensesTypes addInfo)
         {
@@ -109,6 +109,29 @@ namespace Web.Controllers
             {
                 return -2;
             }
+        }
+        public async Task<IActionResult> SearchExpenses(int DepartmentId, int expensesType, int startSum, int endSum, string firstName, string lastName, string patronymic, string description, int endNumber,int startNumber,DateTime startDate,DateTime endDate)
+        {
+            List<Expenses> model = new List<Expenses>();
+            var result = await _context.ExpensesViews.Where(
+                s => s.DepartmentId == (DepartmentId > 0 ? DepartmentId : s.DepartmentId) &&
+                s.TypeId == (expensesType > 0 ? expensesType : s.TypeId) &&
+                s.Sum >= startSum &&
+                s.DepartmentEmployeesNumber >= startNumber &&
+                s.Sum <= (endSum > 0 ? endSum : s.Sum) &&
+                s.DepartmentEmployeesNumber <= (endNumber > 0 ? endNumber : s.DepartmentEmployeesNumber) &&
+                s.Date >= startDate &&
+                s.Date <= (endDate > startDate ? endDate : s.Date) &&
+                s.FirstName ==(!String.IsNullOrEmpty(firstName)?firstName:s.FirstName) &&
+                s.LastName ==(!String.IsNullOrEmpty(lastName)?firstName:s.LastName) &&
+                s.Patronymic ==(!String.IsNullOrEmpty(patronymic) ?patronymic:s.Patronymic) &&
+                s.Description ==(!String.IsNullOrEmpty(description) ?description:s.Description) 
+                ).ExpensesViewEntities().ToListAsync();
+            for (int i = 0; i < result.Count; i++)
+            {
+                model.Add(result[i]);
+            }
+            return PartialView("~/Views/Expenses/_partialExpensesTable.cshtml", model);
         }
     }
 }
