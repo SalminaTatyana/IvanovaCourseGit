@@ -94,7 +94,7 @@ else
                 <input class="visually-hidden" id="deleteLimitsId" />
                 <div class="d-flex justify-content-between align-baseline mt-3">
                     <button class="primary-btn blue mr-1 flex-grow-1" type="button" onclick="deleteLimits()">Удалить</button>
-                    <button class="btn secondary-btn ml-1 flex-grow-1" type="button" onclick="closeDeleteModal()">Отменить</button>
+                    <button class="btn secondary-btn ml-1 flex-grow-1" type="reset" >Отменить</button>
                     </div>
             </form>
         </div>
@@ -122,7 +122,7 @@ else
             complete: Loader,
             success: function (data) {
                 $('.edit-modal #editId').val(Id);
-                $('.edit-modal #editDepartmentId').val(data);
+                $('.edit-modal #departmentName').val(data);
                 $('.edit-modal #editlimitValue').val(editlimitValue);
                 $('#editDateLimits').val(parseDate(dayLimit, monthLimit, yearLimit));
                 $('#modalEditLimits').data('ModalWindow').open();

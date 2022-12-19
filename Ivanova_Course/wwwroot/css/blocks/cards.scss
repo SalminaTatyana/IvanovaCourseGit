@@ -26,6 +26,7 @@
     word-break: break-all;
     cursor: pointer;
     text-align: center;
+
     &:hover,
     &:focus {
         background-color: $blue;
@@ -34,8 +35,22 @@
     &:active {
         background: $green;
     }
+
     .icon {
         margin: auto;
+    }
+
+    @media(max-width: 1200px) {
+        width: calc(33.3% - 30px);
+    }
+
+    @media(max-width: 900px) {
+        width: calc(50% - 30px);
+    }
+
+    @media(max-width: 640px) {
+        width: 100%;
+
     }
 }
 .card-name {

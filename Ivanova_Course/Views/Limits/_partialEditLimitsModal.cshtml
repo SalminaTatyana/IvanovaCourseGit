@@ -5,8 +5,8 @@
         </button>
         <div id="alerEditLimits"></div>
         <div class="modal-body-choose-category " style="padding: 20px;">
-            <p class="row add-services-modal-title justify-content-center h3"><span>Добавить новый отдел?</span></p>
-            <form class="add-services-modal-input-wrapper ">
+            <p class="row add-services-modal-title justify-content-center h3"><span>Изменить отдел?</span></p>
+            <form class="add-services-modal-input-wrapper " id="editLimitsForm">
                 <div class="add-services-modal-input-items ">
                     <input class="form-input visually-hidden" id="editId" type="number" />
                     <label class="add-services-modal-label main-label" for="departmentId">Наименование отдела</label>
@@ -23,8 +23,8 @@
 
                 </div>
                 <div class="d-flex justify-content-between align-baseline mt-3">
-                    <button class="btn primary-btn mr-1 flex-grow-1" type="button" onclick="addLimit()">Изменить</button>
-                    <button class="btn secondary-btn ml-1 flex-grow-1" type="button" onclick="closeModalEdit()">Отменить</button>
+                    <button class="btn primary-btn mr-1 flex-grow-1" type="button" onclick="editLimit()">Изменить</button>
+                    <button class="btn secondary-btn ml-1 flex-grow-1" type="reset" >Отменить</button>
                     </div>
             </form>
 
@@ -34,11 +34,11 @@
 <div class="modal-overlay" id="modalEditLimits" ></div>
 <script>
 
-    function addLimit() {
-        var Id = $('#editId').val();
-        var departmentId = $('#editDepartmentId').val();
-        var limitValue = $('#editlimitValue').val();
-        var date = $('#editDateLimits').val();
+    function editLimit() {
+        var Id = $('#editLimitsForm #editId').val();
+        var departmentId = $('#editLimitsForm #departmentName').val();
+        var limitValue = $('#editLimitsForm #editlimitValue').val();
+        var date = $('#editLimitsForm #editDateLimits').val();
         $.ajax({
             url: "@Url.Action("EditLimits")",
             type: 'Post',

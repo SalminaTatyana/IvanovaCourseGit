@@ -12,12 +12,20 @@
             @await Component.InvokeAsync("Department")
         </div>
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
-            <label class="main-label" for="value">Размер лимита</label>
-            <input class="form-input" name="value" type="number" id="value" />
+            <label class="main-label" for="value">Размер лимита от</label>
+            <input class="form-input" name="value" type="number" id="valueStart" />
         </div>
         <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
-            <label class="main-label" for="date">Дата</label>
-            <input class="form-input" name="date" type="date" id="date" />
+            <label class="main-label" for="value">Размер лимита до</label>
+            <input class="form-input" name="value" type="number" id="valueEnd" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="date">Дата от</label>
+            <input class="form-input" name="date" type="date" id="dateStart" />
+        </div>
+        <div class="form-field departmetns-input-wrapper col-lg-3 col-md-4 col-12">
+            <label class="main-label" for="date">Дата до</label>
+            <input class="form-input" name="date" type="date" id="dateEnd" />
         </div>
         <div class=" departmetns-input-wrapper departmetns-button-wrapper col-lg-3 col-md-4 col-12">
             <input type="button" class="primary-btn" value="Поиск" onclick="searchLimits()" />
@@ -34,16 +42,20 @@
 
 <script>
     function searchLimits() {
-        let date = $('#date').val();
+        let dateStart = $('#dateStart').val();
+        let dateEnd = $('#dateEnd').val();
         let departmentName = $('#departmentName').val();
-        let value = $('#value').val();
+        let valueStart = $('#valueStart').val();
+        let valueEnd = $('#valueEnd').val();
         $.ajax({
             url: "@Url.Action("SearchLimits")",
             type: 'Post',
             data: {
-                'date': date,
+                'dateStart': dateStart,
+                'dateEnd': dateEnd,
                 'departmentName': departmentName,
-                'value': value
+                'valueStart': valueStart,
+                'valueEnd': valueEnd
             },
             beforeSend: Loader,
             complete: Loader,

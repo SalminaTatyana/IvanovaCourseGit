@@ -2,13 +2,27 @@
     padding: 40px 15px 15px 70px;
     background: url("../../../images/exercise-bg.png") no-repeat right 30px center;
     background-size: contain;
-
     margin-bottom: 35px;
+
+    @media (max-width:1200px) {
+        background-size: 50%;
+    }
+
+    @media (max-width:900px) {
+        background:none;
+    }
 }
 .home-exercise-text {
     width: 40%;
-    
+
+    @media (max-width:900px) {
+        width: 100%;
+    }
 }
 .home-exercise-list {
     width: 40%;
+
+    @media (max-width:900px) {
+        width: 100%;
+    }
 }

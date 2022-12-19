@@ -26,10 +26,10 @@ namespace Web.Controllers
         {
             return View("Index", model);
         }
-        public async Task<IActionResult> SearchLimits(int departmentName, int value, DateTime? date)
+        public async Task<IActionResult> SearchLimits(int departmentName, int valueStart, int valueEnd, DateTime? dateStart, DateTime? dateEnd)
         {
 
-            var result = await _context.LimitsViews.Where(s => s.DepartmentId == (departmentName>0 ? departmentName : s.DepartmentId) && s.Value == (value > 0 ? value : s.Value) && s.Date == (date != null ? date : s.Date)).LimitsViewEntities().ToListAsync();
+            var result = await _context.LimitsViews.Where(s => s.DepartmentId == (departmentName>0 ? departmentName : s.DepartmentId) && s.Value >= valueStart&& s.Value <=( valueEnd>valueStart?valueEnd:s.Value) && s.Date >= (dateStart != null ? dateStart : s.Date)&& s.Date <= (dateEnd != null ? dateEnd : s.Date)).LimitsViewEntities().ToListAsync();
             model = result;
             return PartialView("_partialLimitsTable", model);
         }

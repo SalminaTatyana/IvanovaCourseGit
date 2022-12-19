@@ -42,7 +42,7 @@ namespace Web.Controllers
             {
                 model.Add(result[i]);
             }
-            return PartialView("_partialDepartmentExpousesTable.cshtml", model);
+            return PartialView("~/Views/Expenses/_partialDepartmentExpousesTable.cshtml", model);
         }
         public async Task<int> AddDepartmentExpouses(ExpensesTypes addInfo)
         {
