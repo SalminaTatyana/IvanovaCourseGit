@@ -34,7 +34,7 @@ namespace Web.Controllers
 
             return PartialView("_partialDepartmentsTable", model);
         }
-        public async Task<int> AddDepartment(Department addInfo)
+        public async Task<ActionResult<BaseResponse>> AddDepartment(Department addInfo)
         {
             try
             {
@@ -47,17 +47,17 @@ namespace Web.Controllers
                     };
                     var response = _context.Departments.Add(department);
                     await _context.SaveChangesAsync();
-                    return department.Id;
+                    return Ok(new BaseResponse { result = 0, message = default }); 
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Имя отдела не должно быть пустым." });
             }
-            catch 
+            catch (Exception)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при добавлении отдела." });
             }
         }
-        public async Task<int> EditDepartment(Department addInfo)
+        public async Task<ActionResult<BaseResponse>> EditDepartment(Department addInfo)
         {
             try
             {
@@ -71,33 +71,36 @@ namespace Web.Controllers
                     };
                     var response = _context.Departments.Update(department);
                     await _context.SaveChangesAsync();
-                    return department.Id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Имя отдела не должно быть пустым." });
             }
-            catch
+            catch(Exception)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при редактировании отдела." });
             }
         }
-        public async Task<int> DeleteDepartment(int id)
+        public async Task<ActionResult<BaseResponse>> DeleteDepartment(int id)
         {
             try
             {
                 if (id!=0)
                 {
-                    var entity = await _context.Departments.SingleOrDefaultAsync(s => s.Id == id); ;
-                    var response = _context.Departments.Remove(entity);
-                    await _context.SaveChangesAsync();
-                    return id;
+                    var entity = await _context.Departments.SingleOrDefaultAsync(s => s.Id == id);
+                    if (entity!=null)
+                    {
+                        var response = _context.Departments.Remove(entity);
+                        await _context.SaveChangesAsync();
+                    }
+                    return Ok(new BaseResponse { result = 0, message = default }); 
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Id=0" });
             }
-            catch
+            catch (Exception)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при удалении отдела." });
             }
         }
     }

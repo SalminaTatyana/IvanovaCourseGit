@@ -37,21 +37,20 @@
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
-                if (data != null) {
-                    if (data != -1) {
+                if (data.result != null) {
+                    if (data.result == 0) {
                         msg = "Новый отдел добавлен!!";
                         type = "success";
                     }
                     else {
-                        msg = "Название отдела не должно быть пустым";
-                        type = data > 1 ? "warning " : "danger";
+                        msg = data.message;
+                        type = data.message < -1 ? "warning " : "danger";
                     }
                 }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
                 flashMessage('#alerAddDeparmnet', msg, type);
-                
-                searchDepartments();
-                if (data != -1) {
+                if (data.result == 0) {
+                    searchDepartments();
                     flashMessage("#infoAddEditDelete", msg, type);
                     closeModal()  
                 }

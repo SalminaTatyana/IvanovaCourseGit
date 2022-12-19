@@ -36,22 +36,26 @@
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
-                    if (data != -1) {
-                        msg = " Отдел изменен";
+                if (data.result ==0) {
+                        msg = "Отдел изменен.";
                         type = "success";
                     }
-                else if (data == -1) {
-                        msg = "Название отдела не должно быть пустым";
-                        type = data > 1 ? "warning " : "danger";
+                else if (data.result == -1) {
+                        msg = data.message;
+                        type = "warning";
+                }
+                else if (data.result == -2) {
+                    msg = data.message;
+                    type = "danger";
                     }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
                 flashMessage('#alerEditDeparmnet', msg, type);
-                if (data != -1) {
-                    
+                if (data.result == 0) {
+                    searchDepartments();
                     flashMessage("#infoAddEditDelete", msg, type);
                     closeModalEdit()
                 }
-                searchDepartments();
+                
 
             }
         });

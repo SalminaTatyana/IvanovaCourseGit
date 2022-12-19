@@ -101,19 +101,24 @@ else
             beforeSend: Loader,
             complete: Loader,
             success: function (data) {
-                 if (data != -1) {
-                        msg = " Отдел удален";
+                if (data.result == 0) {
+                        msg = "Отдел удален.";
                         type = "success";
                  }
-                 else if (data == -1) {
-                     msg = "Id отдела не должно быть пустым";
-                     type = data > 1 ? "warning " : "danger";
-                 }
+                 else if (data.result == -1) {
+                     msg = data.message;
+                     type = "warning ";
+                }
+                else if (data.result == -2) {
+                    msg = data.message;
+                    type = "danger ";
+                }
                 else { msg = "Неизвестная ошибка! Повторите запрос позже!"; type = "danger"; }
                 flashMessage('#alerDeleteDeparmnet', msg, type);
                
-                searchDepartments();
-                if (data != -1) {
+               
+                if (data.result == 0) {
+                    searchDepartments();
                     flashMessage("#infoAddEditDelete", msg, type);
                     closeModalDelete();
                 }
