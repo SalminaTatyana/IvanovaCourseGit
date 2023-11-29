@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Institute\\Базы данных\\IvanovaCourseGit\\Core\\Core.csproj": {}
+    "C:\\Institute\\Базы данных\\IvanovaCourseGit\\time\\time.csproj": {}
   },
   "projects": {
-    "C:\\Institute\\Базы данных\\IvanovaCourseGit\\Core\\Core.csproj": {
+    "C:\\Institute\\Базы данных\\IvanovaCourseGit\\time\\time.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\Core\\Core.csproj",
-        "projectName": "Core",
-        "projectPath": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\time\\time.csproj",
+        "projectName": "time",
+        "projectPath": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\time\\time.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\Core\\obj\\",
+        "outputPath": "C:\\Institute\\Базы данных\\IvanovaCourseGit\\time\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,18 +43,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[5.0.17, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[5.0.17, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -70,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

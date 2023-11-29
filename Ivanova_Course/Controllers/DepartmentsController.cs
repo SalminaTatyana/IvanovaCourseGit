@@ -24,15 +24,16 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> SearchDepartments (string name, int number)
         {
-            List<Departments> model = new List<Departments>();
+            try
+            {
                 var result = await _context.Departments.Where(s => s.Name == (!String.IsNullOrEmpty(name)  ? name : s.Name) && s.EmployeesNumber == (number>0? number:s.EmployeesNumber)).DepartmentsEntities().ToListAsync();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    model.Add(result[i]);
-                }
-
-
-            return PartialView("_partialDepartmentsTable", model);
+            return PartialView("_partialDepartmentsTable", result);
+            }
+            catch (Exception)
+            {
+                return PartialView("_partialDepartmentsTable", null);
+            }
+            
         }
         public async Task<ActionResult<BaseResponse>> AddDepartment(Department addInfo)
         {
@@ -52,9 +53,9 @@ namespace Web.Controllers
                 else
                     return Ok(new BaseResponse { result = -1, message = "Имя отдела не должно быть пустым." });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Ok(new BaseResponse { result = -2, message = $"Ошибка при добавлении отдела." });
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при добавлении отдела.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
         public async Task<ActionResult<BaseResponse>> EditDepartment(Department addInfo)
@@ -76,9 +77,9 @@ namespace Web.Controllers
                 else
                     return Ok(new BaseResponse { result = -1, message = "Имя отдела не должно быть пустым." });
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return Ok(new BaseResponse { result = -2, message = $"Ошибка при редактировании отдела." });
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при редактировании отдела.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
         public async Task<ActionResult<BaseResponse>> DeleteDepartment(int id)
@@ -98,9 +99,9 @@ namespace Web.Controllers
                 else
                     return Ok(new BaseResponse { result = -1, message = "Id=0" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Ok(new BaseResponse { result = -2, message = $"Ошибка при удалении отдела." });
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при удалении отдела. {(ex.InnerException==null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
     }

@@ -22,6 +22,12 @@ namespace Web.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Метод поиска типа трат
+        /// </summary>
+        /// <param name="name">Наименование типа трат</param>
+        /// <param name="description">Описание типа трат</param>
+        /// <returns>Представление со списком</returns>
         public async Task<IActionResult> SearchExpensesType(string name,  string description)
         {
             List<ExpensesTypes> model = new List<ExpensesTypes>();
@@ -32,7 +38,12 @@ namespace Web.Controllers
             }
             return PartialView("~/Views/ExpensesType/_partialExpensesTypeTable.cshtml", model);
         }
-        public async Task<int> AddExpensesType(ExpensesTypes addInfo)
+        /// <summary>
+        /// Мектод добавления типа трат
+        /// </summary>
+        /// <param name="addInfo">Тип трат</param>
+        /// <returns>Объект типа BaseResponse</returns>
+        public async Task<ActionResult<BaseResponse>> AddExpensesType(ExpensesTypes addInfo)
         {
             try
             {
@@ -45,21 +56,26 @@ namespace Web.Controllers
                     };
                     var response = _context.ExpenseTypes.Add(department);
                     await _context.SaveChangesAsync();
-                    return department.Id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Наименование типа трат не долно быть пустым." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при добавлении типа трат.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
-        public async Task<int> EditExpensesType(ExpensesTypes addInfo)
+        /// <summary>
+        /// Мектод редактирования типа трат
+        /// </summary>
+        /// <param name="addInfo">Тип трат</param>
+        /// <returns>Объект типа BaseResponse</returns>
+        public async Task<ActionResult<BaseResponse>> EditExpensesType(ExpensesTypes addInfo)
         {
             try
             {
-                if (!String.IsNullOrEmpty(addInfo.Name))
+                if (!String.IsNullOrEmpty(addInfo.Name)&&addInfo.Id>0)
                 {
                     ExpenseType department = new ExpenseType()
                     {
@@ -69,17 +85,22 @@ namespace Web.Controllers
                     };
                     var response = _context.ExpenseTypes.Update(department);
                     await _context.SaveChangesAsync();
-                    return department.Id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Наименование типа трат и его идентификатор не должны быть пустым." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при редактировании типа трат.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
-        public async Task<int> DeleteExpensesType(int id)
+        /// <summary>
+        /// Мектод удаления типа трат
+        /// </summary>
+        /// <param name="id">Идентификатор типа трат</param>
+        /// <returns>Объект типа BaseResponse</returns>
+        public async Task<ActionResult<BaseResponse>> DeleteExpensesType(int id)
         {
             try
             {
@@ -88,14 +109,14 @@ namespace Web.Controllers
                     var entity = await _context.ExpenseTypes.SingleOrDefaultAsync(s => s.Id == id); ;
                     var response = _context.ExpenseTypes.Remove(entity);
                     await _context.SaveChangesAsync();
-                    return id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Индентификатор типа трат не должен быть пустым." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при удалении типа трат.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
     }

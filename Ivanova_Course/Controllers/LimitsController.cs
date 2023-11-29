@@ -26,6 +26,16 @@ namespace Web.Controllers
         {
             return View("Index", model);
         }
+
+        /// <summary>
+        /// Метод поиска лимитов
+        /// </summary>
+        /// <param name="departmentName">Идентификатор ведомства</param>
+        /// <param name="valueStart">Начальное значение лимитов</param>
+        /// <param name="valueEnd">Конечное значение лимитов</param>
+        /// <param name="dateStart">Дата начала поиска</param>
+        /// <param name="dateEnd">Дата окончания поиска</param>
+        /// <returns>Представление с списком</returns>
         public async Task<IActionResult> SearchLimits(int departmentName, int valueStart, int valueEnd, DateTime? dateStart, DateTime? dateEnd)
         {
 
@@ -33,22 +43,22 @@ namespace Web.Controllers
             model = result;
             return PartialView("_partialLimitsTable", model);
         }
+        /// <summary>
+        /// Метод отображения окна добавления лимитов
+        /// </summary>
+        /// <returns>Представление со списком</returns>
         public IActionResult AddLimitsInfo()
         {
-
             return PartialView("_partialAddLimitsModal", model);
-        } 
-        public async Task<int> EditLimitsInfoAsync(int id)
-        {
-            if (id>0)
-            {
-                var result = await _context.Limits.FirstOrDefaultAsync(s => s.Id == id);
-
-                return result.DepartmentId;
-            }
-            return -1;
         }
-        public async Task<int> AddLimits(int departmentId, int value, DateTime date)
+        /// <summary>
+        /// Метод добавления лимита в базу
+        /// </summary>
+        /// <param name="departmentId">Идентификатор отдела</param>
+        /// <param name="value">Значение лимита</param>
+        /// <param name="date">Дата действия лимита</param>
+        /// <returns>Объект типа BaseResponse </returns>
+        public async Task<ActionResult<BaseResponse>> AddLimits(int departmentId, int value, DateTime date)
         {
             try
             {
@@ -63,17 +73,25 @@ namespace Web.Controllers
                     };
                     var response = _context.Limits.Add(limit);
                     await _context.SaveChangesAsync();
-                    return limit.Id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Идентификатор отдела и значение лимита не должны быть пустыми." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при добавлении лимита.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
-        public async Task<int> EditLimits(int departmentId, int value, DateTime date,int id)
+        /// <summary>
+        /// Метод редактирования лимита
+        /// </summary>
+        /// <param name="departmentId">Идентификатор отдела</param>
+        /// <param name="value">Значение лимита</param>
+        /// <param name="date">Дата действия лимита</param>
+        /// <param name="id">Идентификатор лимита</param>
+        /// <returns>Объект типа BaseResponse </returns>
+        public async Task<ActionResult<BaseResponse>> EditLimits(int departmentId, int value, DateTime date,int id)
         {
             try
             {
@@ -89,17 +107,22 @@ namespace Web.Controllers
                     };
                     var response = _context.Limits.Update(limit);
                     await _context.SaveChangesAsync();
-                    return limit.Id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Индентификатор отдела, идентификатор лимита и его значение не должны быть пустыми." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при редактировании лимита.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
-        public async Task<int> DeleteLimits(int id)
+        /// <summary>
+        /// Метод удаления лимита
+        /// </summary>
+        /// <param name="id">Идентификатор лимита</param>
+        /// <returns>Объект типа BaseResponse</returns>
+        public async Task<ActionResult<BaseResponse>> DeleteLimits(int id)
         {
             try
             {
@@ -108,14 +131,14 @@ namespace Web.Controllers
                     var entity = await _context.Limits.SingleOrDefaultAsync(s => s.Id == id);
                     var response = _context.Limits.Remove(entity);
                     await _context.SaveChangesAsync();
-                    return id;
+                    return Ok(new BaseResponse { result = 0, message = default });
                 }
                 else
-                    return -1;
+                    return Ok(new BaseResponse { result = -1, message = "Индентификатор отдела не должен быть пустым." });
             }
-            catch
+            catch (Exception ex)
             {
-                return -2;
+                return Ok(new BaseResponse { result = -2, message = $"Ошибка при удалении лимита.{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}" });
             }
         }
     }

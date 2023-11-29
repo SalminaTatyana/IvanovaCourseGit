@@ -16,8 +16,6 @@ namespace Web.Models
     }
     public static class DepartmentsMapper
     {
-
-
         public static MapperConfiguration MapperConfigurationDepartments
         {
             get => new MapperConfiguration(cfg =>

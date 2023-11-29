@@ -1,0 +1,12 @@
+C:\Institute\Базы данных\IvanovaCourseGit\time\bin\Debug\net5.0\time.deps.json
+C:\Institute\Базы данных\IvanovaCourseGit\time\bin\Debug\net5.0\time.dll
+C:\Institute\Базы данных\IvanovaCourseGit\time\bin\Debug\net5.0\ref\time.dll
+C:\Institute\Базы данных\IvanovaCourseGit\time\bin\Debug\net5.0\time.pdb
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.csproj.AssemblyReference.cache
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.GeneratedMSBuildEditorConfig.editorconfig
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.AssemblyInfoInputs.cache
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.AssemblyInfo.cs
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.csproj.CoreCompileInputs.cache
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.dll
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\ref\time.dll
+C:\Institute\Базы данных\IvanovaCourseGit\time\obj\Debug\net5.0\time.pdb
